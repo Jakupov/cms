@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE links>
+<links>
+	<link>
+		<img>01.png</img>
+		<href>http://mail.ru</href>
+		<title>Hello, World</title>
+		<intro>Lorem Ipsum</intro>
+	</link>
+	<link>
+		<img>02.png</img>
+		<href>http://yandex.ru</href>
+		<title>Hello, World</title>
+		<intro>Dolor</intro>
+	</link>
+	<link>
+		<img>03.png</img>
+		<href>http://google.com</href>
+		<title>Hello, World</title>
+		<intro>Sit Amet</intro>
+	</link>
+</links>

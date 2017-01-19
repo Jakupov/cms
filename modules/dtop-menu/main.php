@@ -1,0 +1,1 @@
+<div class="module dtop-menu"><?=load_menu("second")?></div>

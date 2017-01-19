@@ -1,0 +1,43 @@
+<?php
+	define('SITENAME','Физико-математический факультет');
+	define('ORGADDRESS','');
+	define('TITLE','Западно-Казахстанский государственный<br>университет имени М.Утемисова');
+	define('SITETITLE','Физико-математический<br>факультет');
+	define('BLOG', 'Блог руководителя');
+	define('E404','404 - Страница не найдена');
+	define('NAME','Имя');
+	define('SPECIAL', 'Версия для слабовидящих');
+	define('COMMENT','Задать вопрос');
+	define('COMMENTS','Все вопросы');
+	define('SUBJECT','Тема');
+	define('EMAIL','E-mail');
+	define('TEXT','Текст');
+	define('SEND','Отправить');
+	define('ERROR','Ошибка');
+	define('SUCCESS','Успешно');
+	define('WRONGCAPTCHA','Капча заполнена неправильно');
+	define('FILLFORM','Форма заполнена неправильно');
+	define('UNKNOWNERROR','Неизвестная ошибка.');
+	define('GALLERIES','Фотогалерея');
+	define('COMMENTSENT','Сообщение сохранено. Оно будет опубликовано после модерации.');
+	//MODULES
+	define('PARTNERS','Партнеры');
+	define('NEWS','Новости');
+	define('EVENTS','События');
+	define('ANNOUNCEMENTS','Объявления');
+	define('VIDEOS','Видеотека');
+	define('SEARCHTEXT','Поиск&hellip;');
+	define('SEARCHRESULTS','Результаты поиска');
+	define('INFORMATION','Информация');
+	define('ALLNEWS','Все новости');
+	define('VIRTUALTOUR','Виртуальный тур');
+	define('DATABASE','Базы данных');
+	define('SERPIN','Серпін-2050');
+	define('ITPLANET','IT-планета');
+	define('RESOURCES','Ресурсы');
+	define('FACULTIES','Факультеты');
+	define('PICTURE','Изображение: ');
+	define('MAP','Схема проезда');
+	define('COPYRIGHT1','Все права защищены © 2003 - 2016 <a href="/"><strong>ЗКГУ им. М. Утемисова.</strong></a>');
+	define('COPYRIGHT2','Республика Казахстан, г.Уральск, пр. Достык 162, тел/факс: 512632, 514266, info@wksu.kz, zapkazgu@mail.ru, <a href="/ru/module/map"><strong>схема проезда.</strong></a>');
+?>

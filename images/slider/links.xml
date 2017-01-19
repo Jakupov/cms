@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE links>
+<links>
+	<link>
+		<img>1.jpg</img>
+		<title>!</title>
+		<intro></intro>
+	</link>
+        <link>
+		<img>2.jpg</img>
+		<title></title>
+		<intro></intro>
+	</link>
+ <link>
+		<img>3.jpg</img>
+		<title></title>
+		<intro></intro>
+	</link>
+ <link>
+		<img>4.jpg</img>
+		<title></title>
+		<intro></intro>
+	</link>
+ <link>
+		<img>5.jpg</img>
+		<title></title>
+		<intro></intro>
+	</link>
+</links>

@@ -1,0 +1,1 @@
+<div class="module"><?=load_menu("resmenu")?></div>

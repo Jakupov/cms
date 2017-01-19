@@ -1,0 +1,135 @@
+h4{
+	padding-left: 15px;
+}
+.login-form {
+	width: 50%;
+	margin: 30px auto;
+	position: relative;
+	top: 40%;
+}
+.menu{
+	margin-bottom: 0;
+}
+.mlevel-1{
+	list-style: none;
+	background: #2980b9;
+}
+.level-1{
+	text-align:center;
+	padding: 10px;
+	display: inline-block;
+	padding: 10px 15px; 
+}
+.level-1 a{
+	color: #fff;
+	font-size: 1.0em;
+}
+.panel{
+	background: #ecf0f1;
+}
+.red{
+	color: red;
+}
+.green{
+	color: green;
+}
+.images{
+	height: 350px;
+	overflow-y: scroll;
+	overflow-x: hidden;
+}
+.images img{
+	padding: 5px;
+	width: 100px;
+	margin-left: 5px;
+}
+.selectedImg{
+	border: 3px solid green;
+}
+.prev_docs{
+	overflow: hidden;
+}
+.prev_docs input{
+	width: 47px;
+	height: 60px;
+	margin: 5px;
+	border: none;
+}
+.prev_docs h6{
+	width: 47px;
+	height: 60px;
+}
+.ft{
+	background-image: url(../img/filetypes/file.png);
+	background-size: 100% 100%;
+}
+.doc{
+	background-image: url(../img/filetypes/doc.png);
+	background-size: 100% 100%;
+}
+.file{
+	background-image: url(../img/filetypes/file.png);
+	background-size: 100% 100%;
+}
+.pdf{
+	background-image: url(../img/filetypes/pdf.png);
+	background-size: 100% 100%;
+}
+.ppt{
+	background-image: url(../img/filetypes/ppt.png);
+	background-size: 100% 100%;
+}
+.rtf{
+	background-image: url(../img/filetypes/rtf.png);
+	background-size: 100% 100%;
+}
+.xls{
+	background-image: url(../img/filetypes/xls.png);
+	background-size: 100% 100%;
+}
+.zip{
+	background-image: url(../img/filetypes/zip.png);
+	background-size: 100% 100%;
+}
+.delete{
+	border: none;
+	background: transparent;
+	font-size: 1.5em;
+}
+.toggle:hover{
+	cursor: pointer;
+}
+.fa-toggle-on{
+	color: green;
+}
+.fa-toggle-off{
+	color: red;
+}
+.table {
+    display: table;
+    margin-bottom: 0;
+    border-collapse: collapse;
+}
+.row {
+    display: table-row;
+    background-color: transparent;
+}
+.cell {
+	display: table-cell;
+    padding: 10px 5px;
+}
+.move:hover{
+	cursor: move;
+}
+.version{
+	float: right;
+}
+#sortable{
+	float: left;
+}
+#sortable li{
+	margin-top: 10px;
+}
+.ui-state-highlight { 
+	border: 2px solid green;
+}
