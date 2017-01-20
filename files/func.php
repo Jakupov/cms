@@ -240,12 +240,7 @@
 			$date = date('d.m.Y', strtotime($cdate));
 			$share_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 			$div .= '<div class="article-info">
-						<div class="article-category">
-							<a href="/'.$lang.'/category/'.$cid.'">'.$ct.'</a>
-						</div>
-						<div class="article-date">
-							<span>'.$date.'</span>
-						</div>
+			
 						<div class="share-buttons">
 						    <a href="http://www.facebook.com/sharer.php?u='.$share_link.'" target="_blank">
 						        <img src="images/social/fb.png" alt="Facebook" />
@@ -259,6 +254,12 @@
 						    <a href="http://vkontakte.ru/share.php?url='.$share_link.'" target="_blank">
 						        <img src="images/social/vk.png" alt="VK" />
 						    </a>
+						</div>
+						<div class="article-category">
+							<a href="/'.$lang.'/category/'.$cid.'">'.$ct.'</a>
+						</div>
+						<div class="article-date">
+							<span>'.$date.'</span>
 						</div>
 					</div>';
 			$div .= '<div class="article-body">';
