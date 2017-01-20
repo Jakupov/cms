@@ -70,6 +70,7 @@
 							<input type="submit" name="new_article" class="fa fa-file-o btn btn-default" value="'.CREATE.'">
 							<span id="group_delete" class="btn btn-default fa fa-toggle-off" name="articles">'.DELETE.'</span>
 	                        <span id="group_restore" class="btn btn-default fa fa-toggle-on" name="articles">'.RESTORE.'</span>
+	                        <span id="group_copy" class="btn btn-default fa fa-clone" name="articles"> '.COPY.'</span>
 	                        </div>
 		  			</div>
 	  			</form>
@@ -180,16 +181,16 @@
 		$query = "";
 		switch ($lang) {
 			case 'kz':
-				$query .= "SELECT c.title_kz, c.intro_kz, c.fulltext_kz";
+				$query .= "SELECT c.title_kz, c.title_kz, c.intro_kz, c.fulltext_kz";
 				break;
 			case 'ru':
-				$query .= "SELECT c.title_ru, c.intro_ru, c.fulltext_ru";
+				$query .= "SELECT c.title_kz, c.title_ru, c.intro_ru, c.fulltext_ru";
 				break;
 			case 'en':
-				$query .= "SELECT c.title_en, c.intro_en, c.fulltext_en";
+				$query .= "SELECT c.title_kz, c.title_en, c.intro_en, c.fulltext_en";
 				break;
 			default:
-				$query .= "SELECT c.title_kz, c.intro_kz, c.fulltext_kz";
+				$query .= "SELECT c.title_kz, c.title_kz, c.intro_kz, c.fulltext_kz";
 				break;
 		}
 		
@@ -198,7 +199,7 @@
 		LEFT JOIN images i ON i.id=c.id
 		WHERE c.id=?";
 		if ($stmt = $conn -> prepare($query)) {
-			$stmt -> bind_result($title, $intro, $fulltext, $category_id, $image_id, $gallery_id);
+			$stmt -> bind_result($title_original, $title, $intro, $fulltext, $category_id, $image_id, $gallery_id);
 			$stmt -> bind_param("i", $insert_id);
 			$stmt -> execute();
 			$stmt -> fetch();
@@ -231,7 +232,11 @@
 
 	  		<div class="panel panel-default">
 	  		<div class="panel-heading">'.ARTICLE.'</div>
-	  		<div class="panel-body">
+	  		<div class="panel-body">  		
+				<div class="form-group">
+                    <label>Оригинальное название</label>
+                    <label class="fa form-control-static">'.$title_original.'</label>
+                </div>
 				<div class="form-group">
 					<label for="category">'.TITLE.'</label>
 					<input type="text" value="'.$title.'" class="form-control"  name="title">
