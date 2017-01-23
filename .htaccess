@@ -1,1 +1,52 @@
 Options -Indexes
+
+<ifModule mod_headers.c>
+    # Все css, javascript и текстовые файлы будут храниться в кэше браузера одну неделю
+    <FilesMatch "\.(js|css|txt)$">
+        Header set Cache-Control "max-age=604800"
+    </FilesMatch>
+    # Все флэш файлы и изображения будут храниться в кэше браузера один месяц
+    <FilesMatch "\.(flv|swf|ico|gif|jpg|jpeg|png)$">
+        Header set Cache-Control "max-age=2592000"
+    </FilesMatch>
+    # Отключаем кеширование php и других служебных файлов
+    <FilesMatch "\.(pl|php|cgi|spl|scgi|fcgi)$">
+        Header unset Cache-Control
+    </FilesMatch>
+</IfModule>
+<ifModule mod_expires.c>
+    ExpiresActive On
+    #по умолчанию кеш в 5 секунд
+    ExpiresDefault "access plus 5 seconds"
+    # Включаем кэширование изображений и флэш на месяц
+    ExpiresByType image/x-icon "access plus 1 month"
+    ExpiresByType image/jpeg "access plus 4 weeks"
+    ExpiresByType image/png "access plus 30 days"
+    ExpiresByType image/gif "access plus 43829 minutes"
+    ExpiresByType application/x-shockwave-flash "access plus 2592000 seconds"
+    # Включаем кэширование css, javascript и текстовых файлоф на одну неделю
+    ExpiresByType text/css "access plus 604800 seconds"
+    ExpiresByType text/javascript "access plus 604800 seconds"
+    ExpiresByType application/javascript "access plus 604800 seconds"
+    ExpiresByType application/x-javascript "access plus 604800 seconds"
+    # Включаем кэширование xml файлов на десять минут
+    ExpiresByType application/xhtml+xml "access plus 600 seconds"
+
+	# Add a far future Expires header for fonts
+	ExpiresByType application/vnd.ms-fontobject "access plus 1 year"
+	ExpiresByType application/x-font-ttf "access plus 1 year"
+	ExpiresByType application/x-font-opentype "access plus 1 year"
+	ExpiresByType application/x-font-woff "access plus 1 year"
+	ExpiresByType image/svg+xml "access plus 1 year"
+</ifModule>
+ErrorDocument 404 /index.php?error=404
+RewriteEngine On
+RewriteBase /
+RewriteRule ^(kz|ru|en)/(.*)$  $2?lang=$1 [QSA,L]
+#RewriteRule ^admin/(.*)$  /admin/index.php?$1 [QSA,L]
+RewriteRule ^([a-z]+)/([0-9]+)$  index.php?view=$1&id=$2 [QSA,L]
+RewriteRule ^search/(.*)$  index.php?view=search&text=$1 [QSA,L]
+RewriteRule ^ajax/([a-z]+)$  /files/ajax.php?action=$1 [QSA,L]
+RewriteRule ^galleries$  index.php?view=galleries&text=list [QSA,L]
+RewriteRule ^([a-z]+)/([a-z0-9\-\_]+)/([0-9]+)$  index.php?view=$1&id=$2&menuid=$3 [QSA,L]
+RewriteRule ^([a-z]+)/([a-z0-9\-\_]+)/([0-9]+)$  index.php?view=$1&text=$2&menuid=$3 [QSA,L]

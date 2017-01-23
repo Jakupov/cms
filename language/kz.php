@@ -1,8 +1,8 @@
 <?php
-	define('SITENAME','Физика-математика факультеті');
+	define('SITENAME','Сайт атауы');
 	define('ORGADDRESS','');
-	define('TITLE','М.Өтемісұлы атындағы<br>Батыс Қазақстан мемлекеттік университеті');
-	define('SITETITLE','Физика-математика<br>факультеті');
+	define('TITLE','');
+	define('SITETITLE','Сайт тақырыбы');
 	define('BLOG', 'Басқарма басшысы блогы');
 	define('E404','404 - Бет табылмады');
 	define('NAME','Аты');
@@ -38,6 +38,6 @@
 	define('FACULTIES','Факультеттер');
 	define('PICTURE','Сурет: ');
 	define('MAP','Жұру картасы');
-	define('COPYRIGHT1','Барлық құқықтар сақталған © 2003 - 2016 <a href="/"><strong>М.Өтемісов атындағы БҚМУ</strong></a>');
-	define('COPYRIGHT2','Қазақстан Республикасы, Орал қ, Достық 162, тел/факс: 512632, 514266, info@wksu.kz, zapkazgu@mail.ru, <a href="/kz/module/map"><strong>жүру картасы.</strong></a>');
+	define('COPYRIGHT1','2017');
+	define('COPYRIGHT2','Copyright');
 ?>

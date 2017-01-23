@@ -8,4 +8,6 @@
 	define('IMG',"images/");
 	define('LANG',"language/");
 	define('PERPAGE',15);
+	define('RECAPTCHAPUBLIC','6LdLwxIUAAAAADtJq5PLUTTZ_H9qGT87t7zzz1zq');
+	define('RECAPTCHAPRIVATE','6LdLwxIUAAAAAJ8f3UcInKK17jBMBHafkxa3MQcg');
 ?>

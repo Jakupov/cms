@@ -1,8 +1,8 @@
 <?php
-	define('SITENAME','Faculty of Physics and Mathematics');
+	define('SITENAME','Site name');
 	define('ORGADDRESS','');
-	define('TITLE','West Kazakhstan state university <br>Makhambet Utemisov');
-	define('SITETITLE','Faculty of <br>Physics and Mathematics');
+	define('TITLE','');
+	define('SITETITLE','Site title');
 	define('BLOG', 'Блог руководителя');
 	define('E404','404 - Страница не найдена');
 	define('NAME','Имя');
@@ -38,6 +38,6 @@
 	define('FACULTIES','Факультеты');
 	define('PICTURE','Изображение: ');
 	define('MAP','Схема проезда');
-	define('COPYRIGHT1','Все права защищены © 2003 - 2016 <a href="/"><strong>ЗКГУ им. М. Утемисова.</strong></a>');
-	define('COPYRIGHT2','Республика Казахстан, г.Уральск, пр. Достык 162, тел/факс: 512632, 514266, info@wksu.kz, zapkazgu@mail.ru, <a href="/ru/module/map"><strong>схема проезда.</strong></a>');
+	define('COPYRIGHT1','2017');
+	define('COPYRIGHT2','Copyright');
 ?>

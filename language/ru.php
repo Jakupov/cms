@@ -1,8 +1,8 @@
 <?php
-	define('SITENAME','Физико-математический факультет');
+	define('SITENAME','Название сайта');
 	define('ORGADDRESS','');
-	define('TITLE','Западно-Казахстанский государственный<br>университет имени М.Утемисова');
-	define('SITETITLE','Физико-математический<br>факультет');
+	define('TITLE','');
+	define('SITETITLE','Заголовок сайта');
 	define('BLOG', 'Блог руководителя');
 	define('E404','404 - Страница не найдена');
 	define('NAME','Имя');
@@ -38,6 +38,6 @@
 	define('FACULTIES','Факультеты');
 	define('PICTURE','Изображение: ');
 	define('MAP','Схема проезда');
-	define('COPYRIGHT1','Все права защищены © 2003 - 2016 <a href="/"><strong>ЗКГУ им. М. Утемисова.</strong></a>');
-	define('COPYRIGHT2','Республика Казахстан, г.Уральск, пр. Достык 162, тел/факс: 512632, 514266, info@wksu.kz, zapkazgu@mail.ru, <a href="/ru/module/map"><strong>схема проезда.</strong></a>');
+	define('COPYRIGHT1','2017');
+	define('COPYRIGHT2','Copyright');
 ?>

@@ -84,8 +84,8 @@
 	function load_category_children($parent_id) {
 		$mysqli = connect();
 		$lang = get_lang();
-		$sql = "SELECT c.id, c.title_$lang, a.id, a.title_$lang, i.preview 
-				FROM categories c 
+		$sql = "SELECT c.id, c.title_$lang, a.id, a.title_$lang, i.preview
+				FROM categories c
 				LEFT JOIN contents a ON c.id = a.category_id AND a.state = 1
 				LEFT JOIN images i ON a.image_id = i.id
 				WHERE c.parent_id = ? AND c.state = 1 ORDER BY c.sort_order, c.id, a.created_date DESC ";
@@ -131,7 +131,7 @@
 			$div .= '</li>';
 		}
 		$div .= '</ul>';
-		if ($cc > 0) {			
+		if ($cc > 0) {
 			return $div;
 		} else {
 			return "";
@@ -232,7 +232,7 @@
 			$date = date('d.m.Y', strtotime($cdate));
 			$share_link = "http://$_SERVER[HTTP_HOST]$_SERVER[REQUEST_URI]";
 			$div .= '<div class="article-info">
-			
+
 						<div class="share-buttons">
 						    <a href="http://www.facebook.com/sharer.php?u='.$share_link.'" target="_blank">
 						        <img src="images/social/fb.png" alt="Facebook" />
@@ -282,7 +282,7 @@
 			return load_404($main);
 		}
 	}
-	
+
 	function load_gallery($id, $main) {
 		$lang = get_lang();
 		$mysqli = connect();
@@ -306,13 +306,13 @@
 				$div .= '<div id="slides">';
 				$div .= '<ul id="slideshow" class="hidden">';
 			}
-			$div .= '<li><figure>';			
+			$div .= '<li><figure>';
 			$div .= '<img src="'.$url.'" alt="">';
 			if (isset($icaption) && strlen($icaption) > 0) {
 				$div .= '<figcation>'.$icaption.'</figcaption>';
 			}
-			$div .= '</figure></li>';			
-		} 
+			$div .= '</figure></li>';
+		}
 		if ($i > 0) {
 			$div .= '</ul><div class="arrows"></div><div class="buttons"></div></div>';
 			$div .= '</article>';
@@ -325,7 +325,7 @@
 	function load_main($main) {
 		$main -> set_title(SITENAME);
 		$main -> set_view("main");
-		return load_category(3,$main);
+		return load_category(2,$main);
 	}
 
 	function get_images_list($folder) {
@@ -344,21 +344,21 @@
 		}
 		return $res;
 	}
-	
+
 	function get_post_comments($bpid, $total, $page = 1) {
 		$mysqli = connect();
 		$limit = ($page - 1) * PERPAGE;
 		$pp = PERPAGE;
-		$sql = "SELECT id, title, username, comment, comment_date, answer, answer_date 
+		$sql = "SELECT id, title, username, comment, comment_date, answer, answer_date
 				FROM blog_comments
-				WHERE blogpost_id = ? AND state = 1 
+				WHERE blogpost_id = ? AND state = 1
 				ORDER BY comment_date DESC LIMIT ?,?";
 		$query = $mysqli -> prepare($sql);
 		$query -> bind_param("iii", $bpid, $limit, $pp);
 		$query -> bind_result($cid, $ctitle, $username, $comment, $cdate, $answer, $adate);
 		$query -> execute();
 		$div = '';
-		
+
 		while ($query -> fetch()) {
 			$div .= '<div class="comment">';
 			$div .= '<h4>'.$ctitle.'</h4>';
@@ -378,9 +378,9 @@
 				$div .= '<div class="date">'.$adate;
 				$div .= '</div>';
 				$div .= '</div>';
-				$div .= '<div class="answer-text">'.$answer;	
-				$div .= '</div>';					
-				$div .= '</div>';					
+				$div .= '<div class="answer-text">'.$answer;
+				$div .= '</div>';
+				$div .= '</div>';
 			}
 			$div .= '</div>';
 		}
@@ -407,7 +407,7 @@
 		$query = $mysqli -> prepare($sql);
 		$query -> bind_param("i", $id);
 		$query -> bind_result($btitle, $pid, $ptitle, $content, $date, $total);
-		$query -> execute();		
+		$query -> execute();
 		$div = '<article class="blog">';
 		$div .= '<div id="messages"></div>';
 		$first = true;
@@ -428,12 +428,12 @@
 				$div .= '<div class="blog-body">';
 				$div .= $content;
 				$div .= '</div>';
-				
+
 				$div .= '<ul class="nav nav-tabs">';
 				$div .= '<li class="active"><a data-toggle="tab" href="#comment'.$pid.'">'.COMMENT.'</a></li>';
 				$div .= '<li><a data-toggle="tab" data-post="'.$pid.'" data-page="1" data-total="'.$total.'" class="page" href="#comments'.$pid.'">'.COMMENTS.'</a></li>';
 				$div .= '</ul>';
-				
+
 				$div .= '<div class="tab-content">';
 				$div .= '<div id="comment'.$pid.'" class="tab-pane fade in active col-xs-12 col-sm-12 col-md-8 col-md-offset-2 col-lg-6 col-lg-offset-3">';
 				$div .= '<form class="comment-form">';
@@ -460,7 +460,7 @@
 				$div .= '<textarea class="form-control text" required placeholder="'.TEXT.'"></textarea>';
 				$div .= '</div>';
 				$div .= '<div class="form-group">';
-				$div .= '<div class="g-recaptcha" data-sitekey="6LcTggoUAAAAAO3E9dVIc5MUZ_qx3fzW0EWWlSxo"></div>';
+				$div .= '<div class="g-recaptcha" data-sitekey="'.RECAPTCHAPUBLIC.'"></div>';
 				$div .= '</div>';
 				$div .= '<div class="form-group">';
 				$div .= '<input type="submit" class="btn btn-primary" value="'.SEND.'">';
@@ -474,17 +474,17 @@
 			if ($first) {
 				$main -> set_title($btitle .' | '.SITENAME);
 				$first = false;
-			}			
-		} 
+			}
+		}
 		$div .= '</div><div class="clearfix"></div></div></div>';
 		$div .= '</article>';
 		if ($first){
 			return load_404($main);
 		} else {
-			return $div;			
+			return $div;
 		}
 	}
-	
+
 	function blog_comment($p) {
 		if (isset($p['response']) ) {
 			if (check_captcha($p['response'])) {
@@ -493,7 +493,7 @@
 					if (!isset($p['email'])) {
 						$p['email'] = '';
 					}
-					$sql = "INSERT INTO blog_comments (blogpost_id, title, username, email, comment, comment_date) 
+					$sql = "INSERT INTO blog_comments (blogpost_id, title, username, email, comment, comment_date)
 					VALUES(?,?,?,?,CURDATE())";
 					$query = $mysqli -> prepare($sql);
 					$query -> bind_param("isss", $p['id'], $p['subject'], $p['name'], $p['email'], $p['text']);
@@ -501,19 +501,19 @@
 						$alert = 'success';
 						$strong = SUCCESS;
 						$text = COMMENTSENT;
-					} else {			
+					} else {
 						$alert='danger';
 						$strong=ERROR;
-						$text=UNKNOWNERROR;					
+						$text=UNKNOWNERROR;
 					}
-					
-				} else {				
+
+				} else {
 					$alert='danger';
 					$strong=ERROR;
 					$text=FILLFORM;
 				}
-				
-			} else {			
+
+			} else {
 				$alert='danger';
 				$strong=ERROR;
 				$text=WRONGCAPTCHA;
@@ -521,7 +521,7 @@
 		} else {
 				$alert='danger';
 				$strong=ERROR;
-				$text=EMPTYCAPTCHA;			
+				$text=EMPTYCAPTCHA;
 		}
 		$div = '<div class="alert alert-'.$alert.' alert-dismissible" role="alert">
   <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
@@ -529,10 +529,10 @@
 </div>';
 		return $div;
 	}
-	
+
 	function check_captcha($response) {
 		$url = 'https://www.google.com/recaptcha/api/siteverify';
-		$data = array('secret' => '6LcTggoUAAAAACfRLW82QSDoaCVRgFavvjdLwxGD', 
+		$data = array('secret' => RECAPTCHAPRIVATE,
 					  'response' => $response,
 					  'remoteip' => $_SERVER['REMOTE_ADDR']);
 		// use key 'http' even if you send the request to https://...
@@ -545,7 +545,7 @@
 		);
 		$context  = stream_context_create($options);
 		$result = file_get_contents($url, false, $context);
-		if ($result === false) { 
+		if ($result === false) {
 			$res = false;
 		} else {
 			$resp = json_decode($result);
@@ -617,7 +617,7 @@
 		} else $res = false;
 		return $res;
 	}
-	
+
 	function get_pagination($current, $results, $id = 0, $class = "") {
 		$pages  = '<ul class="pagination">';
 		$maxpage = intval($results / PERPAGE);
@@ -651,7 +651,7 @@
 		$pages .= '</ul>';
 		return $pages;
 	}
-	
+
 	function load_galleries($main) {
 		$mysqli = connect();
 		$lang = get_lang();
@@ -672,7 +672,7 @@
 				$div .= '<div id="slides">';
 				$div .= '<ul id="slideshow" class="hidden">';
 			}
-			$div .= '<li>';			
+			$div .= '<li>';
 			$div .= '<a href="/'.$lang.'/gallery/'.$id.'">';
 			$div .= '<div class="slider-info">';
 			if (isset($title) && strlen($title) > 0) {
@@ -680,8 +680,8 @@
 			}
 			$div .= '</div>';
 			$div .= '<img src="'.$url.'" alt="">';
-			$div .= '</a></li>';			
-		} 
+			$div .= '</a></li>';
+		}
 		if ($i > 0) {
 			$div .= '</ul><div class="arrows"></div><div class="buttons"></div></div>';
 			$div .= '</article>';
@@ -770,7 +770,7 @@
 			case 'ru': $lin = 2; break;
 			default: $lin = 3; break;
 		}
-		$sql = "SELECT c.id, c.title_$lang, c.intro_$lang, i.url, i.preview, c.created_date 
+		$sql = "SELECT c.id, c.title_$lang, c.intro_$lang, i.url, i.preview, c.created_date
                 FROM contents c
 				LEFT JOIN images i ON i.id = c.image_id
 				WHERE c.state = 1 AND c.category_id IN ($catstr) ORDER BY c.created_date DESC LIMIT ?";
