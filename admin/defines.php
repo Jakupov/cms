@@ -1,5 +1,5 @@
 <?php 
-	define('VERSION', '1.4 beta');
+	define('VERSION', '1.5 beta');
 	define('SITE', '/');
 	define('DR', $_SERVER['DOCUMENT_ROOT'].'/');
 	define('ADMIN', DR.'admin/');
