@@ -18,7 +18,7 @@
 					} else {
 						$active_link = "/".$active_link;
 					}
-					if ($_GET['menuid']==$cat['id']) {
+					if (isset($_GET['menuid']) && $_GET['menuid']==$cat['id']) {
 						$tree .= '<li class="active"><a href="'.$cat['link'].$active_link.'">'.$cat['title'].'</a>';
 					}
 					else $tree .= '<li><a href="'.$cat['link'].$active_link.'">'.$cat['title'].'</a>';
