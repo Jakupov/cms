@@ -154,6 +154,23 @@ $("#group_restore").on("click",function(){
     });
   })
 
+$("#group_copy").on("click",function(){
+    var selected = new Array();
+    $(".check:checked").each(function() {
+        selected.push($(this).next().val());
+    });
+    if($("#show_deleted").is(":checked")) state = 1; else state = 0;
+    $.ajax({
+        url: "/admin/files/ajax.php?action=group_copy", // Url to which the request is send
+        type: "POST",             // Type of request to be send, called as method
+        data: {ids: selected, selected_category: $("#categories").val(), view: $(this).attr("name"), state: state, search_text: $("#search_text").val() }, 
+        success: function(data)   // A function to be called if request succeeds
+        {
+            $("#list").html(data);
+        }
+    });
+  })
+
 $("#menu_type").on("change",function(){
     $.ajax({
         url: "/admin/files/ajax.php?action=menu_type", // Url to which the request is send
