@@ -90,9 +90,10 @@
                     <div class="panel panel-default">
                             <div class="panel-heading">Меню</div>
                             <div class="panel-body">
-                            <input type="submit" name="new_menu" class="fa fa-file-o btn btn-default" value="Создать">
-                            <span id="group_delete" class="btn btn-default fa fa-toggle-off" name="menus"> Удалить</span>
-                            <span id="group_restore" class="btn btn-default fa fa-toggle-on" name="menus"> Восстановить</span>
+                            <input type="submit" name="new_menu" class="fa fa-file-o btn btn-default" value=" '.CREATE.'">
+                            <span id="group_delete" class="btn btn-default fa fa-toggle-off" name="menus">" '.DELETE.'"</span>
+                            <span id="group_restore" class="btn btn-default fa fa-toggle-on" name="menus"> "'.RESTORE.'"</span>
+                            <span id="group_copy" class="btn btn-default fa fa-clone" name="menus"> "'.COPY.'"</span>
                             </div>
                     </div>
                 </form>
@@ -240,12 +241,14 @@
         </div>';
     }
 
-    function showLinks(){
-        echo '<option value="1">Материал</option>
-        <option value="2">Внешняя ссылка</option>
-        <option value="3">Категория</option>
-        <option value="4">Модуль</option>
-        <option value="5">Блог</option>';
+    function showLinks($link=0){///
+        $links = array('#','Материал','Внешняя ссылка', 'Категория', 'Модуль', 'Блог');
+        for ($i=0; $i <= 5; $i++) { 
+            if ($link==$i) {
+                echo '<option value="'.$i.'" selected>'.$links[$i].'</option>';
+            }
+            else echo '<option value="'.$i.'">'.$links[$i].'</option>';
+        }
     }
 
     function set_articles($selected_category = 0, $search_text = ''){
@@ -343,18 +346,23 @@
         if (isset($save_data["href_text"])) $link = $save_data["href_text"];
         if (isset($save_data["selectedCategory"])) $link = "category/".$save_data["selectedCategory"];
         if (isset($save_data["selectedModule"])) $link = "module/".$save_data["selectedModule"];
+        if ($save_data["links"]==0) $link = "#";
         $conn = connect();
-        $query = "INSERT INTO menus(title_kz, parent_id, image_id, menu_type, link)
-        VALUES(?,?,?,?,?)";
+        $query = "INSERT INTO menus(title_kz, parent_id, image_id, menu_type, link, item_type)
+        VALUES(?,?,?,?,?,?)";
         if ($stmt = $conn -> prepare($query)) {
-            $stmt -> bind_param("siiss", $save_data['title'], $save_data['categories'], $save_data['selectedImg'], $save_data['menus'], $link);
+            $stmt -> bind_param("siissi", $save_data['title'], $save_data['categories'], $save_data['selectedImg'], $save_data['menus'], $link, $save_data['links']);
             $stmt -> execute();
             return $conn -> insert_id;
         }
     }
 
     function update_menu($save_data){
-        $link = "article/".$save_data['selectedArticle'];
+        if (isset($save_data["selectedArticle"])) $link = "article/".$save_data['selectedArticle'];
+        if (isset($save_data["href_text"])) $link = $save_data["href_text"];
+        if (isset($save_data["selectedCategory"])) $link = "category/".$save_data["selectedCategory"];
+        if (isset($save_data["selectedModule"])) $link = "module/".$save_data["selectedModule"];
+        if ($save_data["links"]==0) $link = "#";
         $conn = connect();
         $query = "UPDATE menus";
         switch ($save_data['lang']) {
@@ -371,9 +379,9 @@
                 $query .= " SET title_kz=?, ";
                 break;
         }
-        $query .= " parent_id=?, image_id=?, menu_type=?, link=? WHERE id=?";
+        $query .= " parent_id=?, image_id=?, menu_type=?, link=?, item_type=? WHERE id=?";
         if ($stmt = $conn -> prepare($query)) {
-            $stmt -> bind_param("siissi", $save_data['title'], $save_data['categories'], $save_data['selectedImg'], $save_data['menus'], $link, $save_data['id']);
+            $stmt -> bind_param("siissii", $save_data['title'], $save_data['categories'], $save_data['selectedImg'], $save_data['menus'], $link, $save_data['links'], $save_data['id']);
             $stmt -> execute(); 
             return $save_data['id'];
         }
@@ -384,24 +392,24 @@
         $query = "";
         switch ($lang) {
             case 'kz':
-                $query .= "SELECT c.title_kz, ";
+                $query .= "SELECT c.title_kz, c.title_kz, ";
                 break;
             case 'ru':
-                $query .= "SELECT c.title_ru, ";
+                $query .= "SELECT c.title_kz, c.title_ru, ";
                 break;
             case 'en':
-                $query .= "SELECT c.title_en, ";
+                $query .= "SELECT c.title_kz, c.title_en, ";
                 break;
             default:
-                $query .= "SELECT c.title_kz, ";
+                $query .= "SELECT c.title_kz, c.title_kz, ";
                 break;
         }
-        $query .= " c.parent_id, c.image_id, i.gallery_id, c.menu_type
+        $query .= " c.parent_id, c.image_id, i.gallery_id, c.menu_type, c.item_type
         FROM menus c
         LEFT JOIN images i ON i.id=c.id
         WHERE c.id=?";
         if ($stmt = $conn -> prepare($query)) {
-            $stmt -> bind_result($title, $category_id, $image_id, $gallery_id, $menutype);
+            $stmt -> bind_result($title_original, $title, $category_id, $image_id, $gallery_id, $menutype, $item_type);
             $stmt -> bind_param("i", $insert_id);
             $stmt -> execute();
             $stmt -> fetch();
@@ -423,6 +431,10 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">Меню</div>
                         <div class="panel-body">
+                            <div class="form-group">
+                                <label>Оригинал:</label>
+                                <label class="fa form-control-static">'.$title_original.'</label>
+                            </div>
                             <div class="form-group">
                                 <label>Тип меню</label>
                                 <select class="fa form-control" id="menu_type" name="menus">';
@@ -448,7 +460,7 @@
                                 <label>Ссылка</label>
                                 <select class="fa form-control" id="links" name="links">
                                     ';
-                                showLinks();
+                                showLinks($item_type);
                                 echo '</select>
                             </div>
 
@@ -457,7 +469,7 @@
                     </div>
 
                     <div id="link">';
-                        setArticle($insert_id, $category_id);
+                    
                     echo '</div>
                 </form>
             </div>

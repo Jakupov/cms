@@ -65,9 +65,10 @@
                     <div class="panel panel-default">
                         <div class="panel-heading">'.CATEGORY.'</div>
                         <div class="panel-body">
-                            <input type="submit" name="new_category" class="fa fa-file-o btn btn-default" value="'.SAVE.'"/>
-                            <span id="group_delete" class="btn btn-default fa fa-toggle-off" name="categories">'.DELETE.'</span>
-                            <span id="group_restore" class="btn btn-default fa fa-toggle-on" name="categories">'.RESTORE.'</span>
+                            <input type="submit" name="new_category" class="fa fa-file-o btn btn-default" value=" '.CREATE.'"/>
+                            <span id="group_delete" class="btn btn-default fa fa-toggle-off" name="categories"> '.DELETE.'</span>
+                            <span id="group_restore" class="btn btn-default fa fa-toggle-on" name="categories"> '.RESTORE.'</span>
+                            <span id="group_copy" class="btn btn-default fa fa-clone" name="categories"> '.COPY.'</span>
                         </div>
                     </div>
                 </form>
@@ -90,7 +91,7 @@
 
     function ShowCategories($selected_id = 0, $parent_id = 1) { 
         $conn = connect();
-        $query = "SELECT id, title_kz, parent_id FROM categories";
+        $query = "SELECT id, title_kz, parent_id FROM categories WHERE state = 1";
         if ($stmt = $conn -> prepare($query)) {
         	$stmt -> bind_result($id,$title,$parent_id);
         	$stmt -> execute();
@@ -212,17 +213,17 @@
         $query = "";
         switch ($lang) {
             case 'kz':
-                $query .= "SELECT c.title_kz, ";
+                $query .= "SELECT c.title_kz, c.title_kz, ";
                 break;
             case 'ru':
-                $query .= "SELECT c.title_ru, ";
+                $query .= "SELECT c.title_kz, c.title_ru, ";
                 break;
             case 'en':
-                $query .= "SELECT c.title_en, ";
+                $query .= "SELECT c.title_kz, c.title_en, ";
                 break;
             
             default:
-                $query .= "SELECT c.title_kz, ";
+                $query .= "SELECT c.title_kz, c.title_kz, ";
                 break;
         }
         $query .= " c.parent_id, c.image_id, i.gallery_id 
@@ -230,7 +231,7 @@
         LEFT JOIN images i ON i.id=c.id
         WHERE c.id=?";
         if ($stmt = $conn -> prepare($query)) {
-            $stmt -> bind_result($title, $category_id, $image_id, $gallery_id);
+            $stmt -> bind_result($title_original, $title, $category_id, $image_id, $gallery_id);
             $stmt -> bind_param("i", $insert_id);
             $stmt -> execute();
             $stmt -> fetch();
@@ -251,7 +252,7 @@
                     </div>
                     <div class="panel panel-default">
                         <div class="panel-heading">'.PARENT_CATEGORY.'</div>
-                        <div class="panel-body">
+                        <div class="panel-body"> 
                             <select class="fa form-control" id="category" name="categories">';
                                 ShowCategories($category_id);
                             echo '</select>
@@ -262,7 +263,11 @@
 
                     <div class="panel panel-default">
                         <div class="panel-heading">'.TITLE.'</div>
-                        <div class="panel-body">
+                        <div class="panel-body">           
+                            <div class="form-group">
+                                <label>Оригинал:</label>
+                                <label class="fa form-control-static">'.$title_original.'</label>
+                            </div>
                             <input type="text" value="'.$title.'" class="fa form-control" name="title">
                         </div>
                     </div>

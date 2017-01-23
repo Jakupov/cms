@@ -89,6 +89,53 @@
 						break;
 				}
 				break;
+			case 'group_copy':
+				$ids = $_POST['ids'];
+				switch ($_POST['view']) {
+					case 'articles':
+						$conn = connect();
+						$query = "INSERT INTO contents (title_kz, title_ru, title_en, intro_kz, intro_ru, intro_en, fulltext_kz, fulltext_ru, fulltext_en, state, created_date, category_id, image_id, sort_order) 
+						SELECT title_kz, title_ru, title_en, intro_kz, intro_ru, intro_en, fulltext_kz, fulltext_ru, fulltext_en, state, created_date, category_id, image_id, sort_order 
+						FROM contents WHERE id = ?";
+						if ($stmt = $conn -> prepare($query)) {
+							foreach ($ids as $id) {
+								$stmt -> bind_param("i", $id);
+								$stmt -> execute();
+							}
+						}
+						$stmt -> close();
+						echo list_articles($_POST['selected_category'],$_POST['search_text'],$_POST['state']);
+						break;
+					case 'categories':
+						$conn = connect();
+				        $query = "INSERT INTO categories (title_kz, title_ru, title_en, parent_id, state, params, sort_order, image_id) 
+						SELECT title_kz, title_ru, title_en, parent_id, state, params, sort_order, image_id 
+						FROM categories WHERE id = ?";
+				        if ($stmt = $conn -> prepare($query)) {
+				        	foreach ($ids as $id) {
+					            $stmt -> bind_param("i", $id);
+					            $stmt -> execute();
+				        	}
+				        }
+				        $stmt -> close();
+				        echo list_categories($_POST['selected_category'],$_POST['search_text'],$_POST['state']);
+						break;
+					case 'menus':
+						$conn = connect();
+				        $query = "INSERT INTO menus (menu_type, title_kz, title_ru, title_en, item_type, parent_id, link, image_id, sort_order, state) 
+						SELECT menu_type, title_kz, title_ru, title_en, item_type, parent_id, link, image_id, sort_order, state 
+						FROM menus WHERE id = ?";
+				        if ($stmt = $conn -> prepare($query)) {
+				        	foreach ($ids as $id) {
+					            $stmt -> bind_param("i", $id);
+					            $stmt -> execute();
+				        	}
+				        }
+				        $stmt -> close();
+				        echo list_menus($_POST['selected_category'],$_POST['search_text'],$_POST['state']);
+						break;
+				}
+				break;
 			case 'group_delete':
 				$ids = $_POST['ids'];
 				switch ($_POST['view']) {
