@@ -100,10 +100,16 @@ h4{
 	cursor: pointer;
 }
 .fa-toggle-on{
-	color: green;
+	color: #16a085;
 }
 .fa-toggle-off{
-	color: red;
+	color: #e74c3c;
+}
+.fa-clone{
+	color: #2980b9;
+}
+.fa-file-o{
+	color: #8e44ad;
 }
 .table {
     display: table;

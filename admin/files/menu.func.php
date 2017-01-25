@@ -278,17 +278,17 @@
         return $list;
     }
 
-    function setHref(){
+    function setHref($link = '#'){
         echo '<div class="panel panel-default">
                 <div class="panel-heading">Материал</div>
                 <div class=" panel-body">
                     <label class="fa">Ссылка</label>
-                    <input type="text" class="fa form-control" name="href_text">
+                    <input type="text" class="fa form-control" name="href_text" value="'.$link.'">
                 </div>   
             </div>';
     }
 
-    function setCategory(){
+    function setCategory($category_id){
         echo '<div class="panel panel-default">
                 <div class="panel-heading">Материал</div>
                 <div class=" panel-body">
@@ -300,25 +300,25 @@
             </div>';
     }
 
-    function ShowModules() { 
+    function ShowModules($module) { 
         $dir = $_SERVER['DOCUMENT_ROOT'].'/modules/*';
         $dirs = glob($dir, GLOB_ONLYDIR);
         $folders = "";
         foreach ($dirs as $value){
             $name = basename($value);
-            if ($selected_folder == $name) $folders .= "<option selected value='".$name."'>".$name."</option>";
+            if ($module == $name) $folders .= "<option selected value='".$name."'>".$name."</option>";
             else $folders .= "<option value='".$name."'>".$name."</option>";
         }
         echo $folders;
     }
 
-    function setModule(){
+    function setModule($module){
         echo '<div class="panel panel-default">
                 <div class="panel-heading">Материал</div>
                 <div class=" panel-body">
                     <label class="fa">'.MODULES.'</label>
                     <select class="fa form-control" name="selectedModule">';
-                        ShowModules();
+                        ShowModules($module);
                     echo '</select>
                 </div>  
             </div>';
@@ -404,18 +404,19 @@
                 $query .= "SELECT c.title_kz, c.title_kz, ";
                 break;
         }
-        $query .= " c.parent_id, c.image_id, i.gallery_id, c.menu_type, c.item_type
+        $query .= " c.parent_id, c.image_id, i.gallery_id, c.menu_type, c.item_type, c.link
         FROM menus c
         LEFT JOIN images i ON i.id=c.id
         WHERE c.id=?";
         if ($stmt = $conn -> prepare($query)) {
-            $stmt -> bind_result($title_original, $title, $category_id, $image_id, $gallery_id, $menutype, $item_type);
+            $stmt -> bind_result($title_original, $title, $category_id, $image_id, $gallery_id, $menutype, $item_type, $link);
             $stmt -> bind_param("i", $insert_id);
             $stmt -> execute();
             $stmt -> fetch();
         }
         $stmt -> close();
-
+        $arr = explode("/", $link, 2);
+        $article_id = $arr[1];
         echo '<div class="menu container-fluid">
             <h4>Редактировать меню: <span class="label label-info">'.$lang.'<span></h4>
             <div class="text col-md-8">
@@ -464,12 +465,31 @@
                                 echo '</select>
                             </div>
 
-                            <input type="text" name="selectedArticle" id="selectedArticle" value="'.$insert_id.'"/>
+                            <input type="text" name="selectedArticle" id="selectedArticle" value="'.$article_id.'"/>
                         </div>
                     </div>
 
                     <div id="link">';
-                    
+                    switch ($item_type) {
+                        case 1:
+                            setArticle($article_id);
+                            break;
+                        case 2:
+                            setHref($link);
+                            break;
+                        case 3:
+                            setCategory($article_id); 
+                            break;
+                        case 4:
+                            setModule($article_id); 
+                            break;
+                        case 5:
+                            setBlog(); 
+                            break;
+                        default:
+                            # code...
+                            break;
+                    }
                     echo '</div>
                 </form>
             </div>
