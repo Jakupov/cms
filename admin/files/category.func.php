@@ -101,8 +101,10 @@
         		$cats[$parent_id][$id]['title']=$title;
         		$cats[$parent_id][$id]['parent_id']=$parent_id;
         	}
-            if (isset($_SESSION['current_c'])) $selected_id = $_SESSION['current_c'];
+            if ($selected_id==0) {
+                if (isset($_SESSION['current_c'])) $selected_id = $_SESSION['current_c'];
                     else $selected_id = 1;
+                }
         	$cat = build_tree($cats, $parent_id, $selected_id);
             if ($selected_id==0) echo ROOT_OPTION_SELECTED.$cat;
         	else echo ROOT_OPTION.$cat;
