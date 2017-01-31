@@ -148,8 +148,10 @@
                 $cats[$parent_id][$id]['title']=$title;
                 $cats[$parent_id][$id]['parent_id']=$parent_id;
             }
-            if (isset($_SESSION['current'])) {
-               $selected_id = $_SESSION['current'];
+            if ($selected_id==1) {
+                if (isset($_SESSION['current'])) {
+                    $selected_id = $_SESSION['current'];
+            }
             }
             if ($selected_id==1) $cat = "<option value='1' selected ><strong>Корневой</strong></option>";
             else $cat = "<option value='1'><strong>Корневой</strong></option>";
