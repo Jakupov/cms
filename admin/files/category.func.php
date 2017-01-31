@@ -89,7 +89,7 @@
         echo '</div>';
     }
 
-    function ShowCategories($selected_id = 0, $parent_id = 1) { 
+    function ShowCategories($selected_id = 0) { 
         $conn = connect();
         $query = "SELECT id, title_kz, parent_id FROM categories WHERE state = 1";
         if ($stmt = $conn -> prepare($query)) {
@@ -100,14 +100,13 @@
         		$cats[$parent_id][$id]['id']=$id;
         		$cats[$parent_id][$id]['title']=$title;
         		$cats[$parent_id][$id]['parent_id']=$parent_id;
-        	}
+        	}			
             if ($selected_id==0) {
                 if (isset($_SESSION['current_c'])) $selected_id = $_SESSION['current_c'];
                     else $selected_id = 1;
-                }
-        	$cat = build_tree($cats, $parent_id, $selected_id);
-            if ($selected_id==0) echo ROOT_OPTION_SELECTED.$cat;
-        	else echo ROOT_OPTION.$cat;
+            }
+        	$cat = build_tree($cats, 1, $selected_id);
+			echo ROOT_OPTION.$cat;
         }
         $stmt->close(); 
     }
