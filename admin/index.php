@@ -30,8 +30,7 @@
 	<script src="<?php echo SITE ?>admin/components/tinymce/tinymce.min.js"></script>
   	<script>tinymce.init({ 
   		selector:'textarea',
-  		plugins: "code link",
-  		toolbar: "removeformat"
+  		plugins: "code link"
   		});
   	</script>
   	<script src="<?php echo SITE ?>admin/js/func.js?k=<?php echo rand(); ?>"></script>
