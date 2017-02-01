@@ -34,9 +34,16 @@
 			LEFT JOIN states s ON c.state=s.id 
 			WHERE (c.title_kz LIKE ? OR 
 			c.title_ru LIKE ? OR 
-			c.title_en LIKE ?) AND (c.category_id=?)";
+			c.title_en LIKE ?) ";
 			if ($show_deleted==1) $query .= " AND (c.state=0)";
             else $query .= " AND (c.state=1)";
+            if ($search_text=="") {
+            	$query .= " AND (c.category_id=?)";
+            }
+            else {
+            	$query .= " AND (c.category_id<>?)";
+            	$selected_category = 0;
+            }
 			$search_text = "%".$search_text."%";
 			if ($stmt = $conn -> prepare($query)) {
 				$stmt -> bind_result($id, $title_kz, $title_ru, $title_en, $category_name, $state, $st);

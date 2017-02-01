@@ -36,10 +36,18 @@
         LEFT JOIN states s ON m.state=s.id
         WHERE (m.title_kz LIKE ? OR 
         m.title_ru LIKE ? OR 
-        m.title_en LIKE ?) AND m.parent_id=? ";
+        m.title_en LIKE ?) ";
         if ($show_deleted==1) $query .= " AND (m.state=0)";
         else $query .= " AND (m.state=1)";
+        if ($search_text=="") {
+                $query .= " AND (m.parent_id=?)";
+            }
+            else {
+                $query .= " AND (m.parent_id<>?)";
+                $parent_id = 0;
+            }
         $query .= " AND (m.menu_type LIKE ?) ORDER BY m.sort_order";
+        
         $search_text = "%".$search_text."%";
         if ($stmt = $conn -> prepare($query)) {
             $stmt -> bind_result($id, $title_kz, $title_ru, $title_en, $parent_name, $state, $st);
@@ -148,10 +156,8 @@
                 $cats[$parent_id][$id]['title']=$title;
                 $cats[$parent_id][$id]['parent_id']=$parent_id;
             }
-            if ($selected_id==1) {
-                if (isset($_SESSION['current'])) {
-                    $selected_id = $_SESSION['current'];
-            }
+            if (isset($_SESSION['current'])) {
+               $selected_id = $_SESSION['current'];
             }
             if ($selected_id==1) $cat = "<option value='1' selected ><strong>Корневой</strong></option>";
             else $cat = "<option value='1'><strong>Корневой</strong></option>";
