@@ -145,7 +145,7 @@
 
     function ShowMenuCategories($menutype = 'topmenu', $selected_id = 1){ 
         $conn = connect();
-        $query="SELECT id, title_ru, parent_id FROM menus WHERE menu_type=?";
+        $query="SELECT id, title_ru, parent_id FROM menus WHERE menu_type=? AND state=1";
         if ($stmt = $conn->prepare($query)) {
             $stmt->bind_param("s", $menutype);
             $stmt->bind_result($id,$title,$parent_id);
