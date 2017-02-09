@@ -134,6 +134,7 @@
 		  		<div class="form-group">
 		  			<label for="fulltext">'.FULL_TEXT.'</label>
 		  			<textarea class="form-control" rows="3" name="fulltext"></textarea>
+					<input name="image" type="file" id="upload" class="hidden" onchange="">
 		  		</div>
 		  	</div>
 	  		</div>
@@ -255,6 +256,7 @@
 		  		<div class="form-group">
 		  			<label for="fulltext">'.FULL_TEXT.'</label>
 		  			<textarea class="form-control" rows="3" name="fulltext">'.$fulltext.'</textarea>
+					<input name="image" type="file" id="upload" class="hidden" onchange="">
 		  		</div>
 		  	</div>
 	  		</div>
